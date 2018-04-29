@@ -1,18 +1,4 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-
-var app = express();
-var port = 3000;
-
-// Sets up the Express app to handle data parsing
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-var exphbs = require("express-handlebars");
-
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
-
+//the connection to mysql
 var mysql = require("mysql");
 
 var connection = mysql.createConnection({
@@ -21,12 +7,14 @@ var connection = mysql.createConnection({
   password: "",
   database: "burger_db"
 });
-
+//connection and see if it is connecting
 connection.connect(function(err) {
   if (err) {
-    console.error("error connecting: " + err.stack);
+    console.error("my sql had error connecting: " + err.stack);
     return;
   }
 
-  console.log("connected as id " + connection.threadId);
+  console.log("mysql is connected as id " + connection.threadId);
 });
+
+module.exports = connection;
