@@ -25,9 +25,9 @@ var orm = {
 		//inserts a single row into table
 		var queryString = 'INSERT INTO ' + table + '(' + column + ') VALUES (?)';
         //database query
-        connection.query(queryString, [burgerInput], function(err, data){
+        connection.query(queryString, [burgerInput], function(err, result){
              if(err) throw err;
-                callback(data);
+                callback(result);
         });
 
 		
@@ -39,9 +39,9 @@ var orm = {
 		// updates a single entry in table
 		var queryString = 'UPDATE ' + table + ' SET ' + col + '=?' + 'WHERE ' + condition + '=?';
         //same db query
-        connection.query(queryString, [colVal, conditionVal], function(err, data){
+        connection.query(queryString, [colVal, conditionVal], function(err, result){
             if(err) throw err;
-            callback(data);	
+            callback(result);	
 	    } );  
     }
 };
