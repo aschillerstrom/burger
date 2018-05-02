@@ -1,37 +1,31 @@
-<h1>Movies To Watch</h1>
+<h1>Eat-da-Burger</h1>
 
 <ul>
-  {{#each movies}}
+  {{#each burgers}}
     <li>
       <p>
-        {{this.id}}. {{this.movie}}
+        {{this.id}}. {{this.burger}}
 
-        <button data-movieid="{{this.id}}" class="delmovie">Delete</button>
+        <button data-burgerID="{{this.id}}" class="devour">Devour</button>
       </p>
     </li>
   {{/each}}
 </ul>
 
-<h2>Add a Movie to Watch</h2>
-<form id="addmovie" class="button-size">
-	<textarea type="text" name="movie"></textarea>
-	<button type="submit">Save Movie!</button>
+<h2>Add a Burger to the Menu</h2>
+<form id="addburger" class="button-size">
+	<textarea type="text" name="burger"></textarea>
+	<button type="submit">Add my Burger!</button>
 </form>
 
-<h2>Update a Movie</h2>
-<form id="updatemovie" class="button-size">
-  <input type="text" name="id" placeholder="id">
-	<textarea type="text" name="movie" placeholder="what do you want to update this movie title to?"></textarea>
-	<button type="submit">Update Movie!</button>
-</form>
 
 <script type="text/javascript">
-  $(".delmovie").on("click", function(event) {
-    var id = $(this).data("movieid");
+  $(".devour").on("click", function(event) {
+    var id = $(this).data("burger");
 
     // Send the DELETE request.
-    $.ajax("/movies/" + id, {
-      type: "DELETE"
+    $.ajax("/burgers/" + id, {
+      type: "DEVOUR"
     }).then(
       function() {
         console.log("deleted id ", id);
@@ -41,47 +35,26 @@
     );
   });
 
-  $("#addmovie").on("submit", function(event) {
+  $("#addburger").on("submit", function(event) {
     // Make sure to preventDefault on a submit event.
     event.preventDefault();
 
-    var newMovie = {
-      movie: $("#addmovie [name=movie]").val().trim()
+    var newBurger = {
+      burger: $("#addburger [name=burger]").val().trim()
     };
 
     // Send the POST request.
-    $.ajax("/movies", {
+    $.ajax("/burgers", {
       type: "POST",
-      data: newMovie
+      data: newBurger
     }).then(
       function() {
-        console.log("added new movie");
+        console.log("added new burger");
         // Reload the page to get the updated list
         location.reload();
       }
     );
   });
 
-  $("#updatemovie").on("submit", function(event) {
-    // Make sure to preventDefault on a submit event.
-    event.preventDefault();
-
-    var id = $("[name=id]").val().trim();
-
-    var updatedMovie = {
-      movie: $("#updatemovie [name=movie]").val().trim()
-    };
-
-    // Send the PUT request.
-    $.ajax("/movies/" + id, {
-      type: "PUT",
-      data: updatedMovie
-    }).then(
-      function() {
-        console.log("updated id ", id);
-        // Reload the page to get the updated list
-        location.reload();
-      }
-    );
-  });
+  
 </script>

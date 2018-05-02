@@ -19,6 +19,15 @@ var routes = require('./controllers/burgers_controller.js');
 app.use('/', routes);
 
 
+
+
+
+
+
+//ADD STATIC PUBLIC
+
+
+
 //access the port
 app.listen(port, () =>{
     console.log ('listening on port 3000');
