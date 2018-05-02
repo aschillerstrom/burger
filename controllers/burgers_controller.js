@@ -18,6 +18,32 @@ router.get('/', function(res, req) {
 });
 }); 
 
+router.get('/', function(res, req) {
+    var burgerData = {
+        bgrData = []
+    };
+
+    burger.insertOne(function(results){
+        for(var i=0;i<results.length; i++){
+            burgerData.bgrData.push(results[i]);
+        res.render('index',burgerData)
+    };
+});
+}); 
+
+router.get('/', function(res, req) {
+    var burgerData = {
+        bgrData = []
+    };
+
+    burger.updateOne(function(results){
+        for(var i=0;i<results.length; i++){
+            burgerData.bgrData.push(results[i]);
+        res.render('index',burgerData)
+    };
+});
+}); 
+
 //still need  insertOne and update One
 
 module.exports = router;
