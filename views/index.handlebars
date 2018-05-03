@@ -1,24 +1,54 @@
 <h1>Eat-da-Burger</h1>
+<!-- toptwo columns-->
+<main>
+  <div class = "container">
+    <div class = "row">
+      <div class = "col s6">
+        {{#each burgers}}
+          {{#unless this.devoured}}
+          <div>
+            <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
+                <button type="submit" class='burgerNotDevoured'> {{this.burgerName}}</button>
+              </form>
+          </div>
+          {{/unless}}
+        {{/each}}
+      </div>
 
-<ul>
-  {{#each burgers}}
-    <li>
-      <p>
-        {{this.id}}. {{this.burger}}
+      <div class = "col s6">
+        {{#each burgers}}
+          {{#if this.devoured}}
+          <div class = "burgerDevoured">
+            <div>
+              {{this.burgerName}}
+            </div>
+          </div>
+          {{/if}}
+        {{/each}}
+      </div>
 
-        <button data-burgerID="{{this.id}}" class="devour">Devour</button>
-      </p>
-    </li>
-  {{/each}}
-</ul>
+    </div>
+  </div>
+</main>
 
-<h2>Add a Burger to the Menu</h2>
-<form id="addburger" class="button-size">
-	<textarea type="text" name="burger"></textarea>
-	<button type="submit">Add my Burger!</button>
-</form>
+<!-- add burger field-->
 
 
+
+
+
+<h2>Add a Burger to the Menu!</h2>
+
+<div class = "row">
+  <div class = "col s12">
+    <form action = "/burgers" method = "POST">
+	    <textarea type="text" id = "name" name="burgerName" placeholder = "Yummy burger"></textarea>
+	    <button type="submit" class = "addBurgerBtn">Add my Burger!</button>
+    </form>
+  </div>
+</div>
+
+<!--
 <script type="text/javascript">
   $(".devour").on("click", function(event) {
     var id = $(this).data("burger");
@@ -44,7 +74,7 @@
     };
 
     // Send the POST request.
-    $.ajax("/burgers", {
+    $.ajax("/burgers/", {
       type: "POST",
       data: newBurger
     }).then(
@@ -58,3 +88,4 @@
 
   
 </script>
+-->
