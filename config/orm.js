@@ -6,42 +6,42 @@ const connection = require('./connection.js');
 
 var orm = {
 	//returns all table entries
-	selectAll: function(tableInput, callback) {
+	selectAll: function(callback) {
 		// returns all rows from the target table
-		var queryString = "SELECT * FROM " + tableInput + ";";
+		
 
 		// database query
-		connection.query(queryString, function(err, result) {
-			if (err) {
-				throw err;
-			}
-			//results in callback
+		connection.query('SELECT * FROM burgers', function (err, result) {
+			if (err) throw err;
 			callback(result);
-		});
+		  });
+			
 	},
 
 	//insert a single table entry
-	insertOne: function(tableInput, column, burgerInput, callback) {
+	insertOne: function(burgerName, callback) {
 		//inserts a single row into table
-		var queryString = 'INSERT INTO ' + tableInput + '(' + column + ') VALUES (?)';
-        //database query
-        connection.query(queryString, burgerInput, function(err, result){
-             if(err) throw err;
-                callback(result);
-        });
+		connection.query('INSERT INTO burgers SET ?', {
+			burgerName: burgerName,
+			devoured: false
+			
+		  }, function (err, result) {
+			if (err) throw err;
+			callback(result);
+		  }); 
+       
 
 		
 		
 	},
 
 	// updates a one entry
-	updateOne: function(tableInput, col, condition, conditionVal, callback) {
+	updateOne: function(id, callback) {
 		// updates a single entry in table
-		var queryString = 'UPDATE ' + tableInput + ' SET ' + col + '=?' + 'WHERE ' + condition + '=?';
-        //same db query
-        connection.query(queryString, [colVal, conditionVal], function(err, result){
-            if(err) throw err;
-            callback(result);	
+		connection.query('UPDATE burgers SET ? WHERE ?', [{devoured: true}, {id: id}], function (err, result) {
+			if (err) throw err;
+			callback(result);
+	
 	    } );  
     }
 };

@@ -2,11 +2,15 @@ var express = require("express");
 var bodyParser = require("body-parser");
 
 var app = express();
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+
+//app.use(express, static('public'));
+app.use(express.static(process.cwd() + '/public'));
 
 // sets up the handlebars
 var exphbs = require("express-handlebars");
