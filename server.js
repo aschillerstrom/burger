@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 
 //app.use(express, static('public'));
-app.use(express.static(process.cwd() + '/public'));
+app.use(express.static('/public'));
 
 // sets up the handlebars
 var exphbs = require("express-handlebars");
