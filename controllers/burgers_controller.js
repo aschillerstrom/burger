@@ -1,51 +1,36 @@
-var express = require ('express');
-//var app = express();
-
-var burger =require ('../models/burger.js');
-
+var express = require('express');
 var router = express.Router();
+var burgers = require('../models/burger.js');
 
-router.get('/', function (req, res){
-  res.redirect('/index');
-})
+router.get('/', function(req, res){
+	res.redirect('/burgers')
+});
 
-//selectAll
-router.get("/index", function(req, res) {
-    burger.selectAll(function(data) {
-      var hbsObject = {
-        burgers: data
-      };
-      console.log(hbsObject);
-      res.render("index", hbsObject);
-    });
-  });
+router.get('/burgers', function(req, res){
+	burgers.all(function(data){
+		var hbsObject = {burgers: data};
 
+		console.log(hbsObject);
 
-//insertOne
-router.post("/burger/create", function(req, res) {
-    burger.insertOne(
-      
-      req.body.burgerName, function() {
-      // Send back the ID of the new quote
-      res.redirect('/index');
-    });
-  });
+		res.render('index', hbsObject);
+	});
+});
 
-//still need  insertOne and update One
+router.post('/burgers/create', function(req, res){
+	burgers.create(['burgerName'], [req.body.b_name], function(data){
+		res.redirect('/burgers')
+	});
+});
 
-router.put("/burger/eat/:id", function(req, res) {
-    
-  
-    burger.updateOne(req.params.id, function(){
-      res.redirect('/index');
-    })
-      
-        // If no rows were changed, then the ID must not exist, so 404
-        //return res.status(404).end();
-      //} else {
-        //res.status(200).end();
-      });
-  
+router.put('/burgers/update/:id', function(req, res){
+	var condition = 'id = ' + req.params.id;
+
+	console.log('condition ', condition);
+
+	burgers.update({'devoured': req.body.devoured}, condition, function(data){
+		res.redirect('/burgers');
+	});
+});
 
 module.exports = router;
 

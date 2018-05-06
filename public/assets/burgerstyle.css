@@ -1,0 +1,29 @@
+* {
+    text-align: center;
+    
+}
+
+
+body {
+
+    height: 100%; 
+    width: 100%; 
+    background-image: url("https://s26.postimg.cc/hdwdjak15/diner_Background.jpg"); 
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: burlywood;
+    
+}
+
+.jumbotron {
+    color:  #09bdbd;
+    background-color: transparent;
+}
+
+
+
+p  {
+    
+    font-weight: bold;
+    color:  black;
+}
