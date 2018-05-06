@@ -5,7 +5,7 @@ USE burgers_db;
 -- Create the table plans.
 CREATE TABLE burgers
 (
-id int NOT NULL AUTO_INCREMENT,
+id int  AUTO_INCREMENT NOT NULL,
 burgerName varchar(255) NOT NULL,
 devoured BOOLEAN DEFAULT false,
 PRIMARY KEY (id)
